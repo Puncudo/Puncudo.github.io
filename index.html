@@ -2,15 +2,21 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>גבהים - תכנון שובועי</title>
+  <title>גבהים - תכנון שבועי</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
       background: #f5f7fa;
     }
-    header, .slider-page {
+    header {
       background: #4a90e2;
       color: white;
       text-align: center;
@@ -32,20 +38,22 @@
       cursor: pointer;
     }
     .week-container {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: auto;
+      gap: 1em;
       padding: 1em;
+      flex-grow: 1;
     }
     .day {
       background: white;
       border-radius: 15px;
       padding: 1em;
-      width: 10%;
-      min-width: 50px;
       min-height: 250px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 1em;
+    }
+    .day.gray {
+      background: #ddd;
     }
     .group {
       margin-top: 1em;
@@ -60,8 +68,11 @@
     .person {
       margin-right: 20px;
     }
+    .slider-wrapper {
+      background: #4a90e2;
+      padding: 2em 0;
+    }
     .slider-page {
-      margin-top: 2em;
       padding: 2em;
       display: flex;
       flex-wrap: wrap;
@@ -76,7 +87,6 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       color: black;
       width: 250px;
-	  
       flex-shrink: 0;
     }
     .slider-section ul {
@@ -87,21 +97,24 @@
       font-weight: bold;
       font-style: italic;
     }
-	
-      .today-label {
-  background-color: #4a90e2;
-  color: white;
-  border-radius: 10px;
-  padding: 5px 10px;
-  display: inline-block;
-}
-
+    .today-label {
+      background-color: #4a90e2;
+      color: white;
+      border-radius: 10px;
+      padding: 5px 10px;
+      display: inline-block;
+    }
+    @media (max-width: 768px) {
+      .week-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>גבהים - תכנון שובועי</h1>
+  <h1>גבהים - תכנון שבועי</h1>
 </header>
 
 <div class="week-nav">
@@ -112,7 +125,9 @@
 </div>
 
 <div class="week-container" id="weekContainer"></div>
-<div class="slider-page" id="infoPage"></div>
+<div class="slider-wrapper">
+  <div class="slider-page" id="infoPage"></div>
+</div>
 
 <script>
 let plannerData = [];
@@ -132,7 +147,7 @@ async function loadInfoSections() {
   data.forEach(section => {
     const sectionEl = document.createElement("div");
     sectionEl.className = "slider-section";
-    let html = `<p style="font-size: 22px; font-weight: bold; margin: 10px;">${section.title}</p><p style="font-size: 14px; color: #666;">${section.text}</p><ul>`;
+    let html = `<p style=\"font-size: 22px; font-weight: bold; margin: 10px;\">${section.title}</p><p style=\"font-size: 14px; color: #666;\">${section.text}</p><ul>`;
     for (let i = 1; i <= 15; i++) {
       const task = section[`task${i}`];
       if (task) html += `<li>${task}</li>`;
@@ -177,7 +192,7 @@ function getWeekDates(weekOffset) {
   const sunday = new Date(now);
   sunday.setDate(now.getDate() - now.getDay());
   const days = [];
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 8; i++) {
     const d = new Date(sunday);
     d.setDate(sunday.getDate() + i);
     days.push(d);
@@ -191,17 +206,20 @@ function renderWeek() {
   container.innerHTML = "";
 
   const today = new Date();
-  const isThisWeek = weekDates.some(d => d.toDateString() === today.toDateString());
+  const isThisWeek = weekDates.slice(0, 7).some(d => d.toDateString() === today.toDateString());
   const format = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
-  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class="highlight"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
+  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class=\"highlight\"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
 
-  weekDates.forEach(date => {
+  weekDates.forEach((date, index) => {
     const dayStr = date.toISOString().split('T')[0];
+    const isExtraSunday = index === 7;
+    const transparency = isExtraSunday ? 'opacity: 0.6;' : '';
     const dayEl = document.createElement("div");
-    dayEl.className = "day";
-const isToday = date.toDateString() === new Date().toDateString();
-const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
-dayEl.innerHTML = `<strong${isToday ? ' class="today-label"' : ''}>${dayName}</strong>`;
+    dayEl.className = "day" + (isExtraSunday ? " gray" : "");
+    dayEl.setAttribute('style', transparency);
+    const isToday = date.toDateString() === new Date().toDateString();
+    const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
+    dayEl.innerHTML = `<strong${isToday ? ' class=\"today-label\"' : ''}>${dayName}</strong><div style=\"font-size: 12px; color: gray; margin-top: 4px;\">${format(date)}</div>`;
     const dayData = plannerData.find(p => p.date === dayStr);
     if (dayData) {
       dayData.groups.forEach(group => {
