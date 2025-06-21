@@ -1,42 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Hello Rainbow</title>
+  <title>גבהים - תכנון שובועי</title>
   <style>
     body {
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: Arial, sans-serif;
       margin: 0;
+      padding: 0;
+      background: #f5f7fa;
     }
-    h1 {
-      font-size: 6rem;
-      font-family: 'Segoe UI', Arial, sans-serif;
+    header, .slider-page {
+      background: #4a90e2;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      border-radius: 0 0 20px 20px;
+    }
+    .week-nav {
+      text-align: center;
+      margin: 1em;
+    }
+    .week-nav button {
+      border: none;
+      padding: 8px 13px;
+      border-radius: 15px;
+      margin: 0 5px;
+      background-color: #4a90e2;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .week-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 1em;
+    }
+    .day {
+      background: white;
+      border-radius: 15px;
+      padding: 1em;
+      width: 10%;
+      min-width: 50px;
+      min-height: 250px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1em;
+    }
+    .group {
+      margin-top: 1em;
+      padding: 0.5em;
+      background: #f0f0f0;
+      border-radius: 10px;
+    }
+    .role {
+      margin-top: 0.5em;
+      padding-right: 10px;
+    }
+    .person {
+      margin-right: 20px;
+    }
+    .slider-page {
+      margin-top: 2em;
+      padding: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      color: black;
+      justify-content: space-around;
+    }
+    .slider-section {
+      background: white;
+      border-radius: 15px;
+      padding: 1em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      color: black;
+      width: 250px;
+	  
+      flex-shrink: 0;
+    }
+    .slider-section ul {
+      text-align: right;
+      padding-right: 20px;
+    }
+    .highlight {
       font-weight: bold;
-      letter-spacing: 0.2em;
-      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-      background-size: 200% auto;
-      color: transparent;
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: rainbow 3s linear infinite;
+      font-style: italic;
     }
-    @keyframes rainbow {
-      0% {
-        background-position: 0% 50%;
-      }
-      100% {
-        background-position: 100% 50%;
-      }
-    }
+	
+      .today-label {
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: inline-block;
+}
+
   </style>
 </head>
 <body>
-  <h1>Hello</h1>
+
+<header>
+  <h1>גבהים - תכנון שובועי</h1>
+</header>
+
+<div class="week-nav">
+  <button onclick="changeWeek(-1)">&#x25B6;</button>
+  <span id="weekLabel"></span>
+  <button onclick="changeWeek(1)">&#x25C0;</button>
+  <button onclick="resetWeek()">השבוע</button>
+</div>
+
+<div class="week-container" id="weekContainer"></div>
+<div class="slider-page" id="infoPage"></div>
+
+<script>
+let plannerData = [];
+
+async function loadDataFromSheet() {
+  const res = await fetch("https://api.sheetbest.com/sheets/55ce100b-1f1e-43dd-89d7-e8e5e5bade62");
+  const rows = await res.json();
+  plannerData = convertToNested(rows);
+  renderWeek();
+}
+
+async function loadInfoSections() {
+  const res = await fetch("https://api.sheetbest.com/sheets/1d6b3d34-2c45-4d32-9f46-d2c04962aa16");
+  const data = await res.json();
+  const container = document.getElementById("infoPage");
+  container.innerHTML = "";
+  data.forEach(section => {
+    const sectionEl = document.createElement("div");
+    sectionEl.className = "slider-section";
+    let html = `<p style="font-size: 22px; font-weight: bold; margin: 10px;">${section.title}</p><p style="font-size: 14px; color: #666;">${section.text}</p><ul>`;
+    for (let i = 1; i <= 15; i++) {
+      const task = section[`task${i}`];
+      if (task) html += `<li>${task}</li>`;
+    }
+    html += `</ul>`;
+    sectionEl.innerHTML = html;
+    container.appendChild(sectionEl);
+  });
+}
+
+function normalizeDate(input) {
+  const parts = input.includes('/') ? input.split('/') : input.split('.');
+  const [day, month, year] = parts;
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+}
+
+function convertToNested(rows) {
+  const map = {};
+  rows.forEach(r => {
+    const isoDate = normalizeDate(r.date);
+    if (!map[isoDate]) map[isoDate] = [];
+    let group = map[isoDate].find(g => g.name === r.group);
+    if (!group) {
+      group = { name: r.group, roles: [] };
+      map[isoDate].push(group);
+    }
+    let role = group.roles.find(ro => ro.name === r.role);
+    if (!role) {
+      role = { name: r.role, people: [] };
+      group.roles.push(role);
+    }
+    role.people.push({ fullName: r.person });
+  });
+  return Object.entries(map).map(([date, groups]) => ({ date, groups }));
+}
+
+let currentWeek = 0;
+
+function getWeekDates(weekOffset) {
+  const now = new Date();
+  now.setDate(now.getDate() + weekOffset * 7);
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() - now.getDay());
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(sunday);
+    d.setDate(sunday.getDate() + i);
+    days.push(d);
+  }
+  return days;
+}
+
+function renderWeek() {
+  const weekDates = getWeekDates(currentWeek);
+  const container = document.getElementById("weekContainer");
+  container.innerHTML = "";
+
+  const today = new Date();
+  const isThisWeek = weekDates.some(d => d.toDateString() === today.toDateString());
+  const format = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
+  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class="highlight"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
+
+  weekDates.forEach(date => {
+    const dayStr = date.toISOString().split('T')[0];
+    const dayEl = document.createElement("div");
+    dayEl.className = "day";
+const isToday = date.toDateString() === new Date().toDateString();
+const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
+dayEl.innerHTML = `<strong${isToday ? ' class="today-label"' : ''}>${dayName}</strong>`;
+    const dayData = plannerData.find(p => p.date === dayStr);
+    if (dayData) {
+      dayData.groups.forEach(group => {
+        const groupEl = document.createElement("div");
+        groupEl.className = "group";
+        groupEl.innerHTML = `<b>${group.name}</b>`;
+        group.roles.forEach(role => {
+          const roleEl = document.createElement("div");
+          roleEl.className = "role";
+          roleEl.innerHTML = `<i>${role.name}</i>`;
+          role.people.forEach(person => {
+            const personEl = document.createElement("div");
+            personEl.className = "person";
+            personEl.textContent = person.fullName;
+            roleEl.appendChild(personEl);
+          });
+          groupEl.appendChild(roleEl);
+        });
+        dayEl.appendChild(groupEl);
+      });
+    }
+    container.appendChild(dayEl);
+  });
+}
+
+function changeWeek(offset) {
+  currentWeek += offset;
+  renderWeek();
+}
+
+function resetWeek() {
+  currentWeek = 0;
+  renderWeek();
+}
+
+loadDataFromSheet();
+loadInfoSections();
+</script>
+
 </body>
 </html>
