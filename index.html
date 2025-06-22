@@ -4,28 +4,210 @@
   <meta charset="UTF-8">
   <title>גבהים - תכנון שבועי</title>
   <style>
-    html, body { height: 100%; margin: 0; padding: 0; }
-    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; background: #f5f7fa; }
-    header { position: relative; color: white; text-align: center; min-height: 70px; padding: 1em; border-radius: 0 0 20px 20px; overflow: hidden; z-index: 0; }
-    header::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') center/cover no-repeat; z-index: -1; }
-    header h1 { position: relative; z-index: 1; }
-    .week-nav { text-align: center; margin: 1em; }
-    .week-nav button, .week-nav select { border: none; padding: 8px 13px; border-radius: 15px; margin: 0 5px; background-color: #4a90e2; color: white; font-size: 15px; cursor: pointer; }
-    .week-nav select { background-color: white; color: #4a90e2; font-size: 14px; padding: 5px 10px; }
-    .week-container { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; gap: 1em; padding: 1em; flex-grow: 1; }
-    .day { background: white; border-radius: 15px; padding: 1em; min-height: 250px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-    .day.gray { background: #ddd; }
-    .group { margin-top: 1em; padding: 0.5em; background: #f0f0f0; border-radius: 10px; }
-    .role { margin-top: 0.5em; padding-right: 10px; }
-    .person { margin-right: 20px; padding: 2px 8px; border-radius: 10px; }
-    .highlighted { background: #d0e8ff; border: 1px solid #4a90e2; }
-    .slider-wrapper { background: #4a90e2; padding: 2em 0; }
-    .slider-page { padding: 2em; display: flex; flex-wrap: wrap; gap: 1.5em; color: black; justify-content: space-around; }
-    .slider-section { background: white; border-radius: 15px; padding: 1em; box-shadow: 0 2px 4px rgba(0,0,0,0.1); color: black; width: 250px; flex-shrink: 0; }
-    .slider-section ul { text-align: right; padding-right: 20px; }
-    .highlight { font-weight: bold; font-style: italic; }
-    .today-label { background-color: #4a90e2; color: white; border-radius: 10px; padding: 5px 10px; display: inline-block; }
-    @media (max-width: 768px) { .week-container { grid-template-columns: repeat(2, 1fr); } }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  font-family: Verdana, sans-serif;
+
+    background: #f5f7fa;
+	
+  }
+
+  header {
+    position: relative;
+    color: white;
+    text-align: center;
+    min-height: 100px;
+    padding: 1em;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  header::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') no-repeat;
+    background-size: cover;
+    background-position: center 15%;
+    z-index: -1;
+  }
+
+  header h1 {
+    position: relative;
+    z-index: 1;
+  }
+
+  .week-nav {
+    text-align: center;
+    margin: 1em;
+  }
+
+  .week-nav button,
+  .week-nav select {
+    border: none;
+    padding: 8px 13px;
+    border-radius: 15px;
+    margin: 0 5px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .week-nav select {
+    background-color: white;
+    color: #4a90e2;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  .week-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 1em;
+    padding: 1em;
+    flex-grow: 1;
+  }
+
+  .day {
+    background: white;
+    border-radius: 15px;
+    padding: 1em;
+    min-height: 250px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .day.gray {
+    background: #ddd;
+  }
+
+  .group {
+    margin-top: 1em;
+    padding: 0.7em;
+    background: #f7f7f7;
+  position: relative;
+justify-content: flex-end; /* push roles to bottom */
+    border-radius: 10px;
+	 flex-direction: column;
+	 display: flex;
+	 
+	 
+  }
+
+  .role {
+    margin-top: 0.5em;
+	border-radius: 10px;
+    
+	padding: 13px;
+	
+	background: #fdfdfd;
+
+	color: darkblue;
+
+
+
+  }
+  
+.person {
+  position: static; /* keep normal flow */
+
+color: black;
+border-radius: 10px;
+width: fit-content;
+padding-left: 10px;
+padding-top: 3px;
+background: #fdfdfd;
+
+
+}
+.person::before {
+  content: "";
+  
+  display: inline-block;
+color: #3399ff;
+
+  width: 4px;
+  height: 4px;
+  background-color: #555;
+  border-radius: 50%;
+  margin-left: 5px;
+   margin-right: 15px;
+   vertical-align: middle;
+   
+}
+
+
+  .highlighted {
+    background: #d0e8ff;
+    
+	padding-bottom: 5px;
+	
+
+  }
+
+  .slider-wrapper {
+    background: #4a90e2;
+    background: linear-gradient(rgba(74, 144, 226, 0.4), rgba(74, 144, 226, 0.9)), url('gvahim.jpg') no-repeat;
+	    background-size: cover;
+    background-position: center 70%;
+    padding: 2em 0;
+  }
+
+  .slider-page {
+    padding: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    color: black;
+    justify-content: space-around;
+  }
+
+  .slider-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: black;
+    width: 250px;
+    flex-shrink: 0;
+  }
+
+  .slider-section ul {
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .highlight {
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .today-label {
+    background-color: #4a90e2;
+    color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: inline-block;
+  }
+
+  @media (max-width: 768px) {
+    .week-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+
   </style>
 </head>
 <body>
@@ -140,7 +322,8 @@ function renderWeek() {
         group.roles.forEach(role => {
           const roleEl = document.createElement("div");
           roleEl.className = "role";
-          roleEl.innerHTML = `<i>${role.name}</i>`;
+roleEl.innerHTML = `<b style="margin-bottom: 8px; display: block;">${role.name}</b>`;
+
           role.people.forEach(person => {
             const personEl = document.createElement("div");
             personEl.className = "person" + ((selectedPerson && person.fullName === selectedPerson && index < 7) ? " highlighted" : "");
