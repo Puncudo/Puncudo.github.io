@@ -4,129 +4,28 @@
   <meta charset="UTF-8">
   <title>גבהים - תכנון שבועי</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-    }
-header {
-  position: relative;
-  color: white;
-  text-align: center;
-min-height: 70px;
-  padding: 1em;
-  border-radius: 0 0 20px 20px;
-  overflow: hidden;
-  z-index: 0;
-}
-
-header::before {
-  content: "";
- 
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') center/cover no-repeat;
-
-  z-index: -1;
-}
-
-    header h1 {
-      position: relative;
-      z-index: 1;
-    }
-    .week-nav {
-      text-align: center;
-      margin: 1em;
-    }
-    .week-nav button {
-      border: none;
-      padding: 8px 13px;
-      border-radius: 15px;
-      margin: 0 5px;
-      background-color: #4a90e2;
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-    .week-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: auto;
-      gap: 1em;
-      padding: 1em;
-      flex-grow: 1;
-    }
-    .day {
-      background: white;
-      border-radius: 15px;
-      padding: 1em;
-      min-height: 250px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .day.gray {
-      background: #ddd;
-    }
-    .group {
-      margin-top: 1em;
-      padding: 0.5em;
-      background: #f0f0f0;
-      border-radius: 10px;
-    }
-    .role {
-      margin-top: 0.5em;
-      padding-right: 10px;
-    }
-    .person {
-      margin-right: 20px;
-    }
-    .slider-wrapper {
-      background: #4a90e2;
-      padding: 2em 0;
-    }
-    .slider-page {
-      padding: 2em;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5em;
-      color: black;
-      justify-content: space-around;
-    }
-    .slider-section {
-      background: white;
-      border-radius: 15px;
-      padding: 1em;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      color: black;
-      width: 250px;
-      flex-shrink: 0;
-    }
-    .slider-section ul {
-      text-align: right;
-      padding-right: 20px;
-    }
-    .highlight {
-      font-weight: bold;
-      font-style: italic;
-    }
-    .today-label {
-      background-color: #4a90e2;
-      color: white;
-      border-radius: 10px;
-      padding: 5px 10px;
-      display: inline-block;
-    }
-    @media (max-width: 768px) {
-      .week-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { display: flex; flex-direction: column; min-height: 100vh; font-family: Arial, sans-serif; background: #f5f7fa; }
+    header { position: relative; color: white; text-align: center; min-height: 70px; padding: 1em; border-radius: 0 0 20px 20px; overflow: hidden; z-index: 0; }
+    header::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') center/cover no-repeat; z-index: -1; }
+    header h1 { position: relative; z-index: 1; }
+    .week-nav { text-align: center; margin: 1em; }
+    .week-nav button, .week-nav select { border: none; padding: 8px 13px; border-radius: 15px; margin: 0 5px; background-color: #4a90e2; color: white; font-size: 15px; cursor: pointer; }
+    .week-nav select { background-color: white; color: #4a90e2; font-size: 14px; padding: 5px 10px; }
+    .week-container { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; gap: 1em; padding: 1em; flex-grow: 1; }
+    .day { background: white; border-radius: 15px; padding: 1em; min-height: 250px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .day.gray { background: #ddd; }
+    .group { margin-top: 1em; padding: 0.5em; background: #f0f0f0; border-radius: 10px; }
+    .role { margin-top: 0.5em; padding-right: 10px; }
+    .person { margin-right: 20px; padding: 2px 8px; border-radius: 10px; }
+    .highlighted { background: #d0e8ff; border: 1px solid #4a90e2; }
+    .slider-wrapper { background: #4a90e2; padding: 2em 0; }
+    .slider-page { padding: 2em; display: flex; flex-wrap: wrap; gap: 1.5em; color: black; justify-content: space-around; }
+    .slider-section { background: white; border-radius: 15px; padding: 1em; box-shadow: 0 2px 4px rgba(0,0,0,0.1); color: black; width: 250px; flex-shrink: 0; }
+    .slider-section ul { text-align: right; padding-right: 20px; }
+    .highlight { font-weight: bold; font-style: italic; }
+    .today-label { background-color: #4a90e2; color: white; border-radius: 10px; padding: 5px 10px; display: inline-block; }
+    @media (max-width: 768px) { .week-container { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -140,6 +39,7 @@ header::before {
   <span id="weekLabel"></span>
   <button onclick="changeWeek(1)">&#x25C0;</button>
   <button onclick="resetWeek()">השבוע</button>
+  <select id="personSelector" onchange="renderWeek()"></select>
 </div>
 
 <div class="week-container" id="weekContainer"></div>
@@ -148,36 +48,10 @@ header::before {
 </div>
 
 <script>
-let plannerData = [];
-
-async function loadDataFromSheet() {
-  const res = await fetch("https://api.sheetbest.com/sheets/55ce100b-1f1e-43dd-89d7-e8e5e5bade62");
-  const rows = await res.json();
-  plannerData = convertToNested(rows);
-  renderWeek();
-}
-
-async function loadInfoSections() {
-  const res = await fetch("https://api.sheetbest.com/sheets/1d6b3d34-2c45-4d32-9f46-d2c04962aa16");
-  const data = await res.json();
-  const container = document.getElementById("infoPage");
-  container.innerHTML = "";
-  data.forEach(section => {
-    const sectionEl = document.createElement("div");
-    sectionEl.className = "slider-section";
-    let html = `<p style=\"font-size: 22px; font-weight: bold; margin: 10px;\">${section.title}</p><p style=\"font-size: 14px; color: #666;\">${section.text}</p><ul>`;
-    for (let i = 1; i <= 15; i++) {
-      const task = section[`task${i}`];
-      if (task) html += `<li>${task}</li>`;
-    }
-    html += `</ul>`;
-    sectionEl.innerHTML = html;
-    container.appendChild(sectionEl);
-  });
-}
+let plannerData = [], currentWeek = 0;
 
 function normalizeDate(input) {
-  const parts = input.includes('/') ? input.split('/') : input.split('.');
+  const parts = input.includes('/') ? input.split('/') : input.split('.')
   const [day, month, year] = parts;
   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
 }
@@ -188,45 +62,64 @@ function convertToNested(rows) {
     const isoDate = normalizeDate(r.date);
     if (!map[isoDate]) map[isoDate] = [];
     let group = map[isoDate].find(g => g.name === r.group);
-    if (!group) {
-      group = { name: r.group, roles: [] };
-      map[isoDate].push(group);
-    }
+    if (!group) group = { name: r.group, roles: [] }, map[isoDate].push(group);
     let role = group.roles.find(ro => ro.name === r.role);
-    if (!role) {
-      role = { name: r.role, people: [] };
-      group.roles.push(role);
-    }
+    if (!role) role = { name: r.role, people: [] }, group.roles.push(role);
     role.people.push({ fullName: r.person });
   });
   return Object.entries(map).map(([date, groups]) => ({ date, groups }));
 }
-
-let currentWeek = 0;
 
 function getWeekDates(weekOffset) {
   const now = new Date();
   now.setDate(now.getDate() + weekOffset * 7);
   const sunday = new Date(now);
   sunday.setDate(now.getDate() - now.getDay());
-  const days = [];
-  for (let i = 0; i < 8; i++) {
+  return Array.from({length: 8}, (_, i) => {
     const d = new Date(sunday);
     d.setDate(sunday.getDate() + i);
-    days.push(d);
-  }
-  return days;
+    return d;
+  });
+}
+
+function getSelectedPerson() {
+  return document.getElementById("personSelector").value;
+}
+
+function updatePersonDropdown(weekDates) {
+  const personMap = {};
+  weekDates.slice(0, 7).forEach(date => {
+    const dayStr = date.toISOString().split('T')[0];
+    const dayData = plannerData.find(p => p.date === dayStr);
+    if (dayData) {
+      dayData.groups.forEach(group => {
+        group.roles.forEach(role => {
+          role.people.forEach(person => {
+            personMap[person.fullName] = (personMap[person.fullName] || 0) + 1;
+          });
+        });
+      });
+    }
+  });
+
+  const select = document.getElementById("personSelector");
+select.innerHTML = '<option value="">בחר שם לסימון</option>' +
+  Object.entries(personMap).map(([name, count]) =>
+    `<option value="${name}" ${getSelectedPerson() === name ? 'selected' : ''}>${name} (${count})</option>`
+  ).join('');
+
 }
 
 function renderWeek() {
   const weekDates = getWeekDates(currentWeek);
+  const selectedPerson = getSelectedPerson();
+  updatePersonDropdown(weekDates);
   const container = document.getElementById("weekContainer");
   container.innerHTML = "";
-
   const today = new Date();
   const isThisWeek = weekDates.slice(0, 7).some(d => d.toDateString() === today.toDateString());
   const format = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
-  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class=\"highlight\"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
+  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class="highlight"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
 
   weekDates.forEach((date, index) => {
     const dayStr = date.toISOString().split('T')[0];
@@ -235,7 +128,7 @@ function renderWeek() {
     const dayEl = document.createElement("div");
     dayEl.className = "day" + (isExtraSunday ? " gray" : "");
     dayEl.setAttribute('style', transparency);
-    const isToday = date.toDateString() === new Date().toDateString();
+    const isToday = date.toDateString() === today.toDateString();
     const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
     dayEl.innerHTML = `<strong${isToday ? ' class=\"today-label\"' : ''}>${dayName}</strong><div style=\"font-size: 12px; color: gray; margin-top: 4px;\">${format(date)}</div>`;
     const dayData = plannerData.find(p => p.date === dayStr);
@@ -250,7 +143,7 @@ function renderWeek() {
           roleEl.innerHTML = `<i>${role.name}</i>`;
           role.people.forEach(person => {
             const personEl = document.createElement("div");
-            personEl.className = "person";
+            personEl.className = "person" + ((selectedPerson && person.fullName === selectedPerson && index < 7) ? " highlighted" : "");
             personEl.textContent = person.fullName;
             roleEl.appendChild(personEl);
           });
@@ -271,6 +164,32 @@ function changeWeek(offset) {
 function resetWeek() {
   currentWeek = 0;
   renderWeek();
+}
+
+async function loadDataFromSheet() {
+  const res = await fetch("https://api.sheetbest.com/sheets/55ce100b-1f1e-43dd-89d7-e8e5e5bade62");
+  const rows = await res.json();
+  plannerData = convertToNested(rows);
+  renderWeek();
+}
+
+async function loadInfoSections() {
+  const res = await fetch("https://api.sheetbest.com/sheets/1d6b3d34-2c45-4d32-9f46-d2c04962aa16");
+  const data = await res.json();
+  const container = document.getElementById("infoPage");
+  container.innerHTML = "";
+  data.forEach(section => {
+    const sectionEl = document.createElement("div");
+    sectionEl.className = "slider-section";
+    let html = `<p style='font-size:22px; font-weight:bold; margin:10px;'>${section.title}</p><p style='font-size:14px; color:#666;'>${section.text}</p><ul>`;
+    for (let i = 1; i <= 15; i++) {
+      const task = section[`task${i}`];
+      if (task) html += `<li>${task}</li>`;
+    }
+    html += `</ul>`;
+    sectionEl.innerHTML = html;
+    container.appendChild(sectionEl);
+  });
 }
 
 loadDataFromSheet();
