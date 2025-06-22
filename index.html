@@ -16,12 +16,30 @@
       font-family: Arial, sans-serif;
       background: #f5f7fa;
     }
-    header {
-      background: #4a90e2;
-      color: white;
-      text-align: center;
-      padding: 1em;
-      border-radius: 0 0 20px 20px;
+header {
+  position: relative;
+  color: white;
+  text-align: center;
+min-height: 70px;
+  padding: 1em;
+  border-radius: 0 0 20px 20px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+header::before {
+  content: "";
+ 
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') center/cover no-repeat;
+
+  z-index: -1;
+}
+
+    header h1 {
+      position: relative;
+      z-index: 1;
     }
     .week-nav {
       text-align: center;
