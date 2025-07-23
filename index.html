@@ -1,258 +1,269 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <title>גבהים - תכנון שבועי</title>
   <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-family: Verdana, sans-serif;
 
-  body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  font-family: Verdana, sans-serif;
+      background: #f5f7fa;
 
-    background: #f5f7fa;
-	
-  }
-  
-      body.dark-mode {
+    }
+
+    body.dark-mode {
       background: #000000;
       color: #797979;
     }
 
 
-  header {
-    position: relative;
-    color: white;
-    text-align: center;
-    min-height: 100px;
-    padding: 1em;
-    border-radius: 0 0 20px 20px;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  body.dark-mode header {
-        position: relative;
-    color: rgb(153, 153, 153);
-    text-align: center;
-    min-height: 100px;
-    padding: 1em;
-    border-radius: 0 0 20px 20px;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  header::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') no-repeat;
-    background-size: cover;
-    background-position: center 15%;
-    z-index: -1;
-  }
-
-  header h1 {
-    position: relative;
-    z-index: 1;
-  }
-
-  .week-nav {
-    text-align: center;
-    margin: 1em;
-  }
-
-   body.dark-mode header::before {
-        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('gvahim.jpg') no-repeat;
-content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-     background-size: cover;
-    background-position: center 15%;
-    z-index: -1;
-  
+    header {
+      position: relative;
+      color: white;
+      text-align: center;
+      min-height: 100px;
+      padding: 1em;
+      border-radius: 0 0 20px 20px;
+      overflow: hidden;
+      z-index: 0;
     }
 
-  .week-nav button,
-  .week-nav select {
-    border: none;
-    padding: 8px 13px;
-    border-radius: 15px;
-    margin: 0 5px;
-    background-color: #134c8e;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-  }
+    body.dark-mode header {
+      position: relative;
+      color: rgb(153, 153, 153);
+      text-align: center;
+      min-height: 100px;
+      padding: 1em;
+      border-radius: 0 0 20px 20px;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(rgba(74, 144, 226, 0.3), rgba(74, 144, 226, 0.6)), url('gvahim.jpg') no-repeat;
+      background-size: cover;
+      background-position: center 15%;
+      z-index: -1;
+    }
+
+    header h1 {
+      position: relative;
+      z-index: 1;
+    }
+
+    .week-nav {
+      text-align: center;
+      margin: 1em;
+    }
+
+    body.dark-mode header::before {
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('gvahim.jpg') no-repeat;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center 15%;
+      z-index: -1;
+
+    }
+
+    .week-nav button,
+    .week-nav select {
+      border: none;
+      padding: 8px 13px;
+      border-radius: 15px;
+      margin: 0 5px;
+      background-color: #134c8e;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
 
 
 
     body.dark-mode .week-nav button,
-  body.dark-mode .week-nav select {
-    border: none;
-    padding: 8px 13px;
-    border-radius: 15px;
-    margin: 0 5px;
-    background-color: #2c2f32;
-    color: rgb(168, 168, 168);
-    font-size: 15px;
-    cursor: pointer;
-  }
+    body.dark-mode .week-nav select {
+      border: none;
+      padding: 8px 13px;
+      border-radius: 15px;
+      margin: 0 5px;
+      background-color: #2c2f32;
+      color: rgb(168, 168, 168);
+      font-size: 15px;
+      cursor: pointer;
+    }
 
-  .week-nav select {
-    background-color: white;
-    color: #4a90e2;
-    font-size: 14px;
-    padding: 5px 10px;
-  }
+    .week-nav select {
+      background-color: white;
+      color: #4a90e2;
+      font-size: 14px;
+      padding: 5px 10px;
+    }
 
-  .week-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: auto;
-    gap: 1em;
-    padding: 1em;
-    flex-grow: 1;
-  }
+    .week-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: auto;
+      gap: 1em;
+      padding: 1em;
+      flex-grow: 1;
+    }
 
-  .day {
-    background: white;
-    border-radius: 15px;
-    padding: 1em;
-    min-height: 250px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
+    .day {
+      background: white;
+      border-radius: 15px;
+      padding: 1em;
+      min-height: 250px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-  .day.gray {
-    background: #ddd;
-  }
+    .day.gray {
+      background: #ddd;
+    }
 
-  .group {
-    margin-top: 1em;
-    padding: 0.7em;
-    background: #f7f7f7;
-  position: relative;
-justify-content: flex-end; /* push roles to bottom */
-    border-radius: 10px;
-	 flex-direction: column;
-	 display: flex;
-	 
-	 
-  }
-
-  .role {
-    margin-top: 0.5em;
-	border-radius: 10px;
-    
-	padding: 13px;
-	
-	background: #fdfdfd;
-
-	color: darkblue;
+    .group {
+      margin-top: 1em;
+      padding: 0.7em;
+      background: #f7f7f7;
+      position: relative;
+      justify-content: flex-end;
+      /* push roles to bottom */
+      border-radius: 10px;
+      flex-direction: column;
+      display: flex;
 
 
+    }
 
-  }
-  
-.person {
-  position: static; /* keep normal flow */
+    .role {
+      margin-top: 0.5em;
+      border-radius: 10px;
 
-color: black;
-border-radius: 10px;
-width: fit-content;
-padding-left: 10px;
-padding-top: 3px;
-background: #fdfdfd;
+      padding: 13px;
 
+      background: #fdfdfd;
 
-}
-
-body.dark-mode .person {
-  
-position: static; /* keep normal flow */
-color: #b3b3b3 ;
-border-radius: 10px;
-width: fit-content;
-padding-left: 10px;
-padding-top: 3px;
-background-color: transparent;
-}
-
-
-.person::before {
-  content: "";
-  
-  display: inline-block;
-color: #3399ff;
-
-  width: 4px;
-  height: 4px;
-  background-color: #555;
-  border-radius: 50%;
-  margin-left: 5px;
-   margin-right: 15px;
-   vertical-align: middle;
-   
-}
-
-body.dark-mode .person.highlighted {
-  background-color: #898888; /* or any dark highlight color */
-  color: white;
-}
-
-  .highlighted {
-    background: #cce6ff;
-  
-	padding-bottom: 5px;
-	
-
-  }
+      color: darkblue;
 
 
 
-  .slider-wrapper {
-    background: #4a90e2;
-    background: linear-gradient(rgba(74, 144, 226, 0.4), rgba(74, 144, 226, 0.9)), url('gvahim.jpg') no-repeat;
-	    background-size: cover;
-    background-position: center 70%;
-    padding: 2em 0;
-  }
+    }
 
-  .slider-page {
-    padding: 2em;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5em;
-    color: black;
-    justify-content: space-around;
-  }
+    .person {
+      position: static;
+      /* keep normal flow */
 
-  .slider-section {
-    background: white;
-    border-radius: 15px;
-    padding: 1em;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    color: black;
-    width: 250px;
-    flex-shrink: 0;
-  }
+      color: black;
+      border-radius: 10px;
+      width: fit-content;
+      padding-left: 10px;
+      padding-top: 3px;
+      background: #fdfdfd;
 
-  .slider-section ul {
-    text-align: right;
-    padding-right: 20px;
-  }
 
-  .highlight {
-    font-weight: bold;
-    font-style: italic;
-  }
+    }
+
+    body.dark-mode .person {
+
+      position: static;
+      /* keep normal flow */
+      color: #b3b3b3;
+      border-radius: 10px;
+      width: fit-content;
+      padding-left: 10px;
+      padding-top: 3px;
+      background-color: transparent;
+    }
+
+
+    .person:not(:empty)::before {
+      content: "";
+
+      display: inline-block;
+      color: #3399ff;
+
+      width: 4px;
+      height: 4px;
+      background-color: #555;
+      border-radius: 50%;
+      margin-left: 5px;
+      margin-right: 15px;
+      vertical-align: middle;
+
+    }
+
+    body.dark-mode .person.highlighted {
+      background-color: #898888;
+      /* or any dark highlight color */
+      color: white;
+    }
+
+    .highlighted {
+      background: #cce6ff;
+
+      padding-bottom: 5px;
+
+
+    }
+
+
+
+    .slider-wrapper {
+      background: #4a90e2;
+      background: linear-gradient(rgba(74, 144, 226, 0.4), rgba(74, 144, 226, 0.9)), url('gvahim.jpg') no-repeat;
+      background-size: cover;
+      background-position: center 70%;
+      padding: 2em 0;
+    }
+
+    .slider-page {
+      padding: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      color: black;
+      justify-content: space-around;
+    }
+
+    .slider-section {
+      background: white;
+      border-radius: 15px;
+      padding: 1em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      color: black;
+      width: 250px;
+      flex-shrink: 0;
+    }
+
+    .slider-section ul {
+      text-align: right;
+      padding-right: 20px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      font-style: italic;
+    }
 
     #darkModeToggle {
       position: absolute;
@@ -262,263 +273,279 @@ body.dark-mode .person.highlighted {
       cursor: pointer;
       z-index: 2;
       margin: 10px;
-      
+
     }
 
 
     body.dark-mode .slider-wrapper {
       filter: brightness(1);
-          background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8)), url('gvahim.jpg') no-repeat;
-	    background-size: cover;
-    background-position: center 70%;
-    padding: 2em 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8)), url('gvahim.jpg') no-repeat;
+      background-size: cover;
+      background-position: center 70%;
+      padding: 2em 0;
     }
 
-  .today-label {
-    background-color: #4a90e2;
-    color: white;
-    border-radius: 10px;
-    padding: 5px 10px;
-    display: inline-block;
-  }
-
-  @media (max-width: 768px) {
-    .week-container {
-      grid-template-columns: repeat(2, 1fr);
+    .today-label {
+      background-color: #4a90e2;
+      color: white;
+      border-radius: 10px;
+      padding: 5px 10px;
+      display: inline-block;
     }
-  }
 
-  body.dark-mode .slider-section,
+    @media (max-width: 768px) {
+      .week-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    body.dark-mode .slider-section,
     body.dark-mode .day,
-    
+
     body.dark-mode .role {
       background: #1e1e1e !important;
       color: #b3b3b3 !important;
     }
 
- 
- body.dark-mode .group {
-  background: #252525 !important;
- }
+
+    body.dark-mode .group {
+      background: #252525 !important;
+    }
 
     body.dark-mode .today-label {
       background-color: #333 !important;
       color: #fff !important;
     }
-
-
-    
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>גבהים - תכנון שבועי</h1>
+  <header>
+    <h1>גבהים - תכנון שבועי</h1>
     <div id="darkModeToggle">🌙</div>
-</header>
+  </header>
 
-<div class="week-nav">
-  <button onclick="changeWeek(-1)">&#x25B6;</button>
-  <span id="weekLabel"></span>
-  <button onclick="changeWeek(1)">&#x25C0;</button>
-  <button onclick="resetWeek()">השבוע</button>
-<select id="personSelector" onchange="saveSelectedPersonAndRender()"></select>
-</div>
+  <div class="week-nav">
+    <button onclick="changeWeek(-1)">&#x25B6;</button>
+    <span id="weekLabel"></span>
+    <button onclick="changeWeek(1)">&#x25C0;</button>
+    <button onclick="resetWeek()">השבוע</button>
+    <select id="personSelector" onchange="saveSelectedPersonAndRender()"></select>
+  </div>
 
-<div class="week-container" id="weekContainer"></div>
-<div class="slider-wrapper">
-  <div class="slider-page" id="infoPage"></div>
-</div>
+  <div class="week-container" id="weekContainer"></div>
+  <div class="slider-wrapper">
+    <div class="slider-page" id="infoPage"></div>
+  </div>
 
-<script>
-let plannerData = [], currentWeek = 0;
+  <script>
+    let plannerData = [], currentWeek = 0;
 
-function normalizeDate(input) {
-  const parts = input.includes('/') ? input.split('/') : input.split('.')
-  const [day, month, year] = parts;
-  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-}
+    function normalizeDate(input) {
+      const parts = input.includes('/') ? input.split('/') : input.split('.')
+      const [day, month, year] = parts;
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    }
 
-function saveSelectedPersonAndRender() {
-  const selected = document.getElementById("personSelector").value;
-  localStorage.setItem("selectedPerson", selected);
-  renderWeek();
-}
-
-
-function convertToNested(rows) {
-  const map = {};
-  rows.forEach(r => {
-    const isoDate = normalizeDate(r.date);
-    if (!map[isoDate]) map[isoDate] = [];
-    let group = map[isoDate].find(g => g.name === r.group);
-    if (!group) group = { name: r.group, roles: [] }, map[isoDate].push(group);
-    let role = group.roles.find(ro => ro.name === r.role);
-    if (!role) role = { name: r.role, people: [] }, group.roles.push(role);
-    role.people.push({ fullName: r.person });
-  });
-  return Object.entries(map).map(([date, groups]) => ({ date, groups }));
-}
-
-function getWeekDates(weekOffset) {
-  const now = new Date();
-  now.setDate(now.getDate() + weekOffset * 7);
-  const sunday = new Date(now);
-  sunday.setDate(now.getDate() - now.getDay());
-  return Array.from({length: 8}, (_, i) => {
-    const d = new Date(sunday);
-    d.setDate(sunday.getDate() + i);
-    return d;
-  });
-}
-function toggleDarkMode() {
-  const isDark = document.body.classList.toggle("dark-mode");
-  document.getElementById("darkModeToggle").textContent = isDark ? "☀️" : "🌙";
-  localStorage.setItem("darkMode", isDark);
-}
-
-function applySavedDarkMode() {
-  const saved = localStorage.getItem("darkMode") === "true";
-  document.body.classList.toggle("dark-mode", saved);
-  document.getElementById("darkModeToggle").textContent = saved ? "☀️" : "🌙";
-}
-
-applySavedDarkMode();
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+    function saveSelectedPersonAndRender() {
+      const selected = document.getElementById("personSelector").value;
+      localStorage.setItem("selectedPerson", selected);
+      renderWeek();
+    }
 
 
-function getSelectedPerson() {
-  return document.getElementById("personSelector").value;
-}
+    function convertToNested(rows) {
+      const map = {};
+      rows.forEach(r => {
+        const isoDate = normalizeDate(r.date);
+        if (!map[isoDate]) map[isoDate] = [];
+        let group = map[isoDate].find(g => g.name === r.group);
+        if (!group) group = { name: r.group, roles: [] }, map[isoDate].push(group);
+        let role = group.roles.find(ro => ro.name === r.role);
+        if (!role) role = { name: r.role, people: [] }, group.roles.push(role);
+        role.people.push({ fullName: r.person && r.person !== "undefined" ? r.person : "" });
+      });
+      return Object.entries(map).map(([date, groups]) => ({ date, groups }));
+    }
 
-function updatePersonDropdown(weekDates) {
-  const personMap = {};
-  weekDates.slice(0, 7).forEach(date => {
-    const dayStr = date.toISOString().split('T')[0];
-    const dayData = plannerData.find(p => p.date === dayStr);
-    if (dayData) {
-      dayData.groups.forEach(group => {
-        group.roles.forEach(role => {
-          role.people.forEach(person => {
-            personMap[person.fullName] = (personMap[person.fullName] || 0) + 1;
+    function getWeekDates(weekOffset) {
+      const now = new Date();
+      now.setDate(now.getDate() + weekOffset * 7);
+      const sunday = new Date(now);
+      sunday.setDate(now.getDate() - now.getDay());
+      return Array.from({ length: 8 }, (_, i) => {
+        const d = new Date(sunday);
+        d.setDate(sunday.getDate() + i);
+        return d;
+      });
+    }
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle("dark-mode");
+      document.getElementById("darkModeToggle").textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("darkMode", isDark);
+    }
+
+    function applySavedDarkMode() {
+      const saved = localStorage.getItem("darkMode") === "true";
+      document.body.classList.toggle("dark-mode", saved);
+      document.getElementById("darkModeToggle").textContent = saved ? "☀️" : "🌙";
+    }
+
+    applySavedDarkMode();
+    document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+
+
+    function getSelectedPerson() {
+      return document.getElementById("personSelector").value;
+    }
+
+    function updatePersonDropdown(weekDates) {
+      const personMap = {};
+      weekDates.slice(0, 7).forEach(date => {
+        const dayStr = date.toISOString().split('T')[0];
+        const dayData = plannerData.find(p => p.date === dayStr);
+        if (dayData) {
+          dayData.groups.forEach(group => {
+            group.roles.forEach(role => {
+              role.people.forEach(person => {
+                personMap[person.fullName] = (personMap[person.fullName] || 0) + 1;
+              });
+            });
           });
+        }
+
+
+
+
+      });
+
+      const select = document.getElementById("personSelector");
+
+      const saved = localStorage.getItem("selectedPerson");
+      if (saved && !personMap[saved]) {
+        localStorage.removeItem("selectedPerson");
+        select.value = "";
+      }
+
+
+      select.innerHTML = '<option value="">בחר שם לסימון</option>' +
+        Object.entries(personMap)
+          .filter(([name]) => name !== undefined && name !== null && name.trim() !== "")
+          .map(([name, count]) =>
+            `<option value="${name}" ${getSelectedPerson() === name ? 'selected' : ''}>${name} (${count})</option>`
+          ).join('');
+
+
+      const savedPerson = localStorage.getItem("selectedPerson");
+      if (savedPerson && !getSelectedPerson()) {
+        document.getElementById("personSelector").value = savedPerson;
+      }
+
+    }
+
+    function renderWeek() {
+      const weekDates = getWeekDates(currentWeek);
+      updatePersonDropdown(weekDates);
+      const selectedPerson = getSelectedPerson();
+      const container = document.getElementById("weekContainer");
+      container.innerHTML = "";
+      const today = new Date();
+      const isThisWeek = weekDates.slice(0, 7).some(d => d.toDateString() === today.toDateString());
+      const format = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+      document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class="highlight"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
+
+      const layoutIndexes = [0, 1, 2, 3, 4, [5, 6]];
+      layoutIndexes.forEach((indexSet, visualIndex) => {
+        const dates = Array.isArray(indexSet) ? indexSet.map(i => weekDates[i]) : [weekDates[indexSet]];
+        const dayEl = document.createElement("div");
+        dayEl.className = "day";
+
+        if (Array.isArray(indexSet)) {
+          dayEl.style.display = "flex";
+          dayEl.style.flexDirection = "column";
+        }
+
+        dates.forEach((date, i) => {
+          const dayStr = date.toISOString().split('T')[0];
+          const isToday = date.toDateString() === new Date().toDateString();
+          const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
+          const inner = document.createElement("div");
+          if (Array.isArray(indexSet)) inner.style.flex = "1";
+
+          inner.innerHTML = `<strong${isToday ? ' class="today-label"' : ''}>${dayName}</strong>
+    <div style="font-size: 12px; color: gray; margin-top: 4px;">${format(date)}</div>`;
+
+          const dayData = plannerData.find(p => p.date === dayStr);
+          if (dayData) {
+            dayData.groups.forEach(group => {
+              const groupEl = document.createElement("div");
+              groupEl.className = "group";
+              groupEl.innerHTML = `<b>${group.name}</b>`;
+              group.roles.forEach(role => {
+                const roleEl = document.createElement("div");
+                roleEl.className = "role";
+                roleEl.innerHTML = `<b style="margin-bottom: 8px; display: block;">${role.name}</b>`;
+                role.people.forEach(person => {
+                  const personEl = document.createElement("div");
+                  personEl.className = "person" + ((selectedPerson && person.fullName === selectedPerson) ? " highlighted" : "");
+                  personEl.textContent = person.fullName || "";
+                  roleEl.appendChild(personEl);
+                });
+                groupEl.appendChild(roleEl);
+              });
+              inner.appendChild(groupEl);
+            });
+          }
+
+          dayEl.appendChild(inner);
         });
+
+        container.appendChild(dayEl);
+      });
+
+    }
+
+    function changeWeek(offset) {
+      currentWeek += offset;
+      renderWeek();
+    }
+
+    function resetWeek() {
+      currentWeek = 0;
+      renderWeek();
+    }
+
+    async function loadDataFromSheet() {
+      const res = await fetch("https://opensheet.elk.sh/1r7g8uVNy-JsN8CZ6LA5g2Qb1A3Yi1U4l67DnlxWnDFU/sheet1");
+      const rows = await res.json();
+      plannerData = convertToNested(rows);
+      renderWeek();
+    }
+
+    async function loadInfoSections() {
+      const res = await fetch("https://opensheet.elk.sh/1faxtBAi-c9Jr1SoiJqvkzBQFuAbZrBmN6fpcGNLeFWM/sheet1");
+      const data = await res.json();
+      const container = document.getElementById("infoPage");
+      container.innerHTML = "";
+      data.forEach(section => {
+        const sectionEl = document.createElement("div");
+        sectionEl.className = "slider-section";
+        let html = `<p style='font-size:22px; font-weight:bold; margin:10px;'>${section.title}</p><p style='font-size:14px; color:#666;'>${section.text}</p><ul>`;
+        for (let i = 1; i <= 15; i++) {
+          const task = section[`task${i}`];
+          if (task) html += `<li>${task}</li>`;
+        }
+        html += `</ul>`;
+        sectionEl.innerHTML = html;
+        container.appendChild(sectionEl);
       });
     }
 
-
-
-
-  });
-
-  const select = document.getElementById("personSelector");
-
-const saved = localStorage.getItem("selectedPerson");
-if (saved && !personMap[saved]) {
-  localStorage.removeItem("selectedPerson");
-  select.value = "";
-}
-
-  
-select.innerHTML = '<option value="">בחר שם לסימון</option>' +
-  Object.entries(personMap).map(([name, count]) =>
-    `<option value="${name}" ${getSelectedPerson() === name ? 'selected' : ''}>${name} (${count})</option>`
-  ).join('');
-
-
-const savedPerson = localStorage.getItem("selectedPerson");
-if (savedPerson && !getSelectedPerson()) {
-  document.getElementById("personSelector").value = savedPerson;
-}
-
-}
-
-function renderWeek() {
-  const weekDates = getWeekDates(currentWeek);
-  updatePersonDropdown(weekDates);
-    const selectedPerson = getSelectedPerson();
-  const container = document.getElementById("weekContainer");
-  container.innerHTML = "";
-  const today = new Date();
-  const isThisWeek = weekDates.slice(0, 7).some(d => d.toDateString() === today.toDateString());
-  const format = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
-  document.getElementById("weekLabel").innerHTML = `<span${isThisWeek ? ' class="highlight"' : ''}>${format(weekDates[0])} - ${format(weekDates[6])}</span>`;
-
-  weekDates.forEach((date, index) => {
-    const dayStr = date.toISOString().split('T')[0];
-    const isExtraSunday = index === 7;
-    const transparency = isExtraSunday ? 'opacity: 0.6;' : '';
-    const dayEl = document.createElement("div");
-    dayEl.className = "day" + (isExtraSunday ? " gray" : "");
-    dayEl.setAttribute('style', transparency);
-    const isToday = date.toDateString() === today.toDateString();
-    const dayName = date.toLocaleDateString('he-IL', { weekday: 'long' });
-    dayEl.innerHTML = `<strong${isToday ? ' class=\"today-label\"' : ''}>${dayName}</strong><div style=\"font-size: 12px; color: gray; margin-top: 4px;\">${format(date)}</div>`;
-    const dayData = plannerData.find(p => p.date === dayStr);
-    if (dayData) {
-      dayData.groups.forEach(group => {
-        const groupEl = document.createElement("div");
-        groupEl.className = "group";
-        groupEl.innerHTML = `<b>${group.name}</b>`;
-        group.roles.forEach(role => {
-          const roleEl = document.createElement("div");
-          roleEl.className = "role";
-roleEl.innerHTML = `<b style="margin-bottom: 8px; display: block;">${role.name}</b>`;
-
-          role.people.forEach(person => {
-            const personEl = document.createElement("div");
-            personEl.className = "person" + ((selectedPerson && person.fullName === selectedPerson && index < 7) ? " highlighted" : "");
-            personEl.textContent = person.fullName;
-            roleEl.appendChild(personEl);
-          });
-          groupEl.appendChild(roleEl);
-        });
-        dayEl.appendChild(groupEl);
-      });
-    }
-    container.appendChild(dayEl);
-  });
-}
-
-function changeWeek(offset) {
-  currentWeek += offset;
-  renderWeek();
-}
-
-function resetWeek() {
-  currentWeek = 0;
-  renderWeek();
-}
-
-async function loadDataFromSheet() {
-  const res = await fetch("https://opensheet.elk.sh/1r7g8uVNy-JsN8CZ6LA5g2Qb1A3Yi1U4l67DnlxWnDFU/sheet1");
-  const rows = await res.json();
-  plannerData = convertToNested(rows);
-  renderWeek();
-}
-
-async function loadInfoSections() {
-  const res = await fetch("https://opensheet.elk.sh/1faxtBAi-c9Jr1SoiJqvkzBQFuAbZrBmN6fpcGNLeFWM/sheet1");
-  const data = await res.json();
-  const container = document.getElementById("infoPage");
-  container.innerHTML = "";
-  data.forEach(section => {
-    const sectionEl = document.createElement("div");
-    sectionEl.className = "slider-section";
-    let html = `<p style='font-size:22px; font-weight:bold; margin:10px;'>${section.title}</p><p style='font-size:14px; color:#666;'>${section.text}</p><ul>`;
-    for (let i = 1; i <= 15; i++) {
-      const task = section[`task${i}`];
-      if (task) html += `<li>${task}</li>`;
-    }
-    html += `</ul>`;
-    sectionEl.innerHTML = html;
-    container.appendChild(sectionEl);
-  });
-}
-
-loadDataFromSheet();
-loadInfoSections();
-</script>
+    loadDataFromSheet();
+    loadInfoSections();
+  </script>
 
 </body>
+
 </html>
