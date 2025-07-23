@@ -489,15 +489,32 @@ function resetWeek() {
 }
 
 async function loadDataFromSheet() {
-  const res = await fetch("https://api.sheetbest.com/sheets/55ce100b-1f1e-43dd-89d7-e8e5e5bade62");
-  const rows = await res.json();
-  plannerData = convertToNested(rows);
+const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vSVCkcAu-01us7M0Nu2QPNdPL-bB30WDdD2m89O7bwBDUPoaw23y4S9yVJheuo3kzV-bb2Wa1i7sxnA/gviz/tq?tqx=out:json");
+const text = await res.text();
+const json = JSON.parse(text.substring(47, text.length - 2)); // Strip Google’s wrapping
+const rows = json.table.rows.map(r => {
+  const obj = {};
+  json.table.cols.forEach((col, i) => {
+    obj[col.label] = r.c[i] ? r.c[i].v : "";
+  });
+  return obj;
+});
+
   renderWeek();
 }
 
 async function loadInfoSections() {
-  const res = await fetch("https://api.sheetbest.com/sheets/1d6b3d34-2c45-4d32-9f46-d2c04962aa16");
-  const data = await res.json();
+const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vS46vH0RJ43fDTtlsp5ouaWipYPbNcwS5WE3UFMbDQkYaJOW3m0hMEjLIGxW_xPhFe5lDsAO2hY0W-n/gviz/tq?tqx=out:json");
+const text = await res.text();
+const json = JSON.parse(text.substring(47, text.length - 2));
+const data = json.table.rows.map(r => {
+  const obj = {};
+  json.table.cols.forEach((col, i) => {
+    obj[col.label] = r.c[i] ? r.c[i].v : "";
+  });
+  return obj;
+});
+
   const container = document.getElementById("infoPage");
   container.innerHTML = "";
   data.forEach(section => {
